@@ -50,7 +50,7 @@ const RegisterScreen = () => {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Re-Enter Password"
+            placeholder="Re-enter Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
