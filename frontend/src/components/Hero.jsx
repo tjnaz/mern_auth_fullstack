@@ -16,7 +16,7 @@ const Hero = () => {
             <Button variant="primary" href="/login" className="me-3">
               Sign In
             </Button>
-            <Button variant="primary" href="/register">
+            <Button variant="secondary" href="/register">
               Sign Up
             </Button>
           </div>
