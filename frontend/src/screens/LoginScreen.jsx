@@ -13,6 +13,12 @@ const LoginScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -23,12 +29,6 @@ const LoginScreen = () => {
       console.log(err?.data?.message || err.error);
     }
   };
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate("/");
-    }
-  }, [navigate, userInfo]);
 
   return (
     <FormContainer>
