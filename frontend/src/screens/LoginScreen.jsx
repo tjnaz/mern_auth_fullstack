@@ -7,12 +7,15 @@ import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 
 const LoginScreen = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [login, { isLoading }] = useLoginMutation();
-  const { userInfo } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
+  const { userInfo } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (userInfo) {
       navigate("/");
@@ -21,12 +24,15 @@ const LoginScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     try {
       const res = await login({ email, password }).unwrap();
+
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (err) {
-      console.log(err?.data?.message || err.error);
+      // console.log(`error: ${err?.message}`);
+      console.log(err?.data?.message || err.error || err.message);
     }
   };
 
