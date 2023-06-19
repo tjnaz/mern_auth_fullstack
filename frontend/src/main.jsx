@@ -12,7 +12,7 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import store from "./store";
-import { Provider } from "react-redux";
+import { Provider } from "react-redux"; // which is the bridge
 
 const router = createBrowserRouter(
   createRoutesFromElements(
