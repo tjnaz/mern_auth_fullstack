@@ -33,7 +33,8 @@ const LoginScreen = () => {
       navigate("/");
     } catch (err) {
       // console.log(`error: ${err?.message}`);
-      console.log(err?.data?.message || err.error || err.message);
+      // console.log(err?.data?.message || err.error || err.message);
+      toast.error(err?.data?.message || err.error || err.message);
     }
   };
 
