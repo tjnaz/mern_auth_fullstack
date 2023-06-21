@@ -9,7 +9,7 @@ const Loader = () => {
         width: "100px",
         height: "100px",
         margin: "auto",
-        display: "auto",
+        display: "block",
       }}
     ></Spinner>
   );
