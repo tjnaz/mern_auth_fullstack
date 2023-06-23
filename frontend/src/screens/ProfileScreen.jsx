@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import { setCredentials } from "../slices/authSlice";
+import { useUpdateUserMutation } from "../slices/usersApiSlice";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,8 @@ const ProfileScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
+  const [updateProfile, { isLoading }] = useUpdateUserMutation();
+
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
@@ -26,9 +29,20 @@ const ProfileScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Passwords to not match");
+      toast.error("Passwords do not match");
     } else {
-      console.log("submit");
+      try {
+        const res = await updateProfile({
+          _id: userInfo._id,
+          name,
+          email,
+          password,
+        }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        toast.success("Profile updated");
+      } catch (err) {
+        toast.error(err?.data?.messaage || err.error);
+      }
     }
   };
 
@@ -45,6 +59,7 @@ const ProfileScreen = () => {
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group className="my-2" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -54,6 +69,7 @@ const ProfileScreen = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group className="my-2" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -63,6 +79,7 @@ const ProfileScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group className="my-2" controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
@@ -72,6 +89,9 @@ const ProfileScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
+        {isLoading && <Loader />}
+
         <Button type="submit" variant="primary" className="mt-3">
           Update
         </Button>
