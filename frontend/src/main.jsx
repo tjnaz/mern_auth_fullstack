@@ -7,12 +7,13 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from "react-redux"; // which is the bridge
 import App from "./App.jsx";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import store from "./store";
-import { Provider } from "react-redux"; // which is the bridge
+import ProfileScreen from "./screens/ProfileScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/profile" element={<ProfileScreen />} />
     </Route>
   )
 );
